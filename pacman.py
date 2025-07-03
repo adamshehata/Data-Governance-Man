@@ -727,7 +727,8 @@ def draw_misc():
 
         # Draw text
         good_job_text = font.render("Good Job!", True, 'green')
-        screen.blit(good_job_text, (start_x + 45, start_y))
+        good_job_rect = good_job_text.get_rect(center=(panel_rect.centerx, start_y))
+        screen.blit(good_job_text, good_job_rect)
 
         # Second line text
         std_text = font.render("You set the 'Standard'!", True, 'green')
@@ -782,12 +783,21 @@ def draw_misc():
         screen.blit(score_text, score_rect)
 
 
-
+def ghost_base_points():
+    if lives == 3:
+        return 200
+    elif lives == 2:
+        return 150
+    elif lives == 1:
+        return 100
+    else:
+        return 50
 
 def check_collisions(scor, power, power_count, eaten_ghosts):
     num1 = (HEIGHT - 50) // 32
     num2 = WIDTH // 30
-    # Multiplier based on remaining lives
+
+    # Base multiplier based on remaining lives
     if lives == 3:
         multiplier = 2
     elif lives == 2:
@@ -795,18 +805,27 @@ def check_collisions(scor, power, power_count, eaten_ghosts):
     elif lives == 1:
         multiplier = 1
     else:
-        multiplier = 0.5  
+        multiplier = 0.5
+
+    # Additional multiplier during power-up
+    if power:
+        power_multiplier = 1.5
+    else:
+        power_multiplier = 1
+
     if 0 < player_x < 870:
         if level[center_y // num1][center_x // num2] == 1:
             level[center_y // num1][center_x // num2] = 0
-            scor += int(10 * multiplier)
+            scor += int(10 * multiplier * power_multiplier)
         if level[center_y // num1][center_x // num2] == 2:
             level[center_y // num1][center_x // num2] = 0
-            scor += int(50 * multiplier)
+            scor += int(50 * multiplier * power_multiplier)
             power = True
             power_count = 0
             eaten_ghosts = [False, False, False, False]
+
     return scor, power, power_count, eaten_ghosts
+
 
 
 def draw_board():
@@ -1243,19 +1262,19 @@ while run:
     if powerup and player_circle.colliderect(blinky.rect) and not blinky.dead and not eaten_ghost[0]:
         blinky_dead = True
         eaten_ghost[0] = True
-        score += (2 ** eaten_ghost.count(True)) * 100
+        score += (2 ** eaten_ghost.count(True)) * ghost_base_points
     if powerup and player_circle.colliderect(inky.rect) and not inky.dead and not eaten_ghost[1]:
         inky_dead = True
         eaten_ghost[1] = True
-        score += (2 ** eaten_ghost.count(True)) * 100
+        score += (2 ** eaten_ghost.count(True)) * ghost_base_points
     if powerup and player_circle.colliderect(pinky.rect) and not pinky.dead and not eaten_ghost[2]:
         pinky_dead = True
         eaten_ghost[2] = True
-        score += (2 ** eaten_ghost.count(True)) * 100
+        score += (2 ** eaten_ghost.count(True)) * ghost_base_points
     if powerup and player_circle.colliderect(clyde.rect) and not clyde.dead and not eaten_ghost[3]:
         clyde_dead = True
         eaten_ghost[3] = True
-        score += (2 ** eaten_ghost.count(True)) * 100
+        score += (2 ** eaten_ghost.count(True)) * ghost_base_points
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
