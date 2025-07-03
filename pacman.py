@@ -1262,19 +1262,19 @@ while run:
     if powerup and player_circle.colliderect(blinky.rect) and not blinky.dead and not eaten_ghost[0]:
         blinky_dead = True
         eaten_ghost[0] = True
-        score += (2 ** eaten_ghost.count(True)) * ghost_base_points
+        score += (2 ** eaten_ghost.count(True)) * ghost_base_points()
     if powerup and player_circle.colliderect(inky.rect) and not inky.dead and not eaten_ghost[1]:
         inky_dead = True
         eaten_ghost[1] = True
-        score += (2 ** eaten_ghost.count(True)) * ghost_base_points
+        score += (2 ** eaten_ghost.count(True)) * ghost_base_points()
     if powerup and player_circle.colliderect(pinky.rect) and not pinky.dead and not eaten_ghost[2]:
         pinky_dead = True
         eaten_ghost[2] = True
-        score += (2 ** eaten_ghost.count(True)) * ghost_base_points
+        score += (2 ** eaten_ghost.count(True)) * ghost_base_points()
     if powerup and player_circle.colliderect(clyde.rect) and not clyde.dead and not eaten_ghost[3]:
         clyde_dead = True
         eaten_ghost[3] = True
-        score += (2 ** eaten_ghost.count(True)) * ghost_base_points
+        score += (2 ** eaten_ghost.count(True)) * ghost_base_points()
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
