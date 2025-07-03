@@ -716,21 +716,12 @@ def draw_misc():
         # Draw the inner dark gray panel
         pygame.draw.rect(screen, 'darkgray', panel_rect.inflate(-20, -20), border_radius=15)
 
-        # Draw your team logo at the top of the panel
-        logo_x = panel_rect.centerx - team_logo.get_width() // 2
-        logo_y = panel_rect.top + 20
-        screen.blit(team_logo, (logo_x, logo_y))
-
-        # Draw "Good Job!" using your G logo
         # Calculate starting position
         start_x = panel_rect.centerx - 150
         start_y = panel_rect.top + 150
 
-        # Draw G logo first
-        screen.blit(g_logo_img, (start_x, start_y))
-
         # Draw rest of the text after G
-        good_job_text = font.render("ood Job!", True, 'green')
+        good_job_text = font.render("Good Job!", True, 'green')
         screen.blit(good_job_text, (start_x + 45, start_y))
 
         # Second line text
@@ -742,6 +733,11 @@ def draw_misc():
         restart_text = font.render("Press Space to play again!", True, 'green')
         restart_rect = restart_text.get_rect(center=(panel_rect.centerx, start_y + 120))
         screen.blit(restart_text, restart_rect)
+        # Show final score
+        score_text = font.render(f'Score: {score}', True, 'white')
+        score_rect = score_text.get_rect(center=(panel_rect.centerx, start_y + 180))
+        screen.blit(score_text, score_rect)
+
 
     # ---- GAME OVER SCREEN ----
     if game_over:
@@ -775,19 +771,33 @@ def draw_misc():
         hint_text = font.render("Press Space to try again!", True, 'red')
         hint_rect = hint_text.get_rect(center=(panel_rect.centerx, panel_rect.centery + 90))
         screen.blit(hint_text, hint_rect)
+        # Show final score
+        score_text = font.render(f'Score: {score}', True, 'white')
+        score_rect = score_text.get_rect(center=(panel_rect.centerx, panel_rect.centery + 150))
+        screen.blit(score_text, score_rect)
+
 
 
 
 def check_collisions(scor, power, power_count, eaten_ghosts):
     num1 = (HEIGHT - 50) // 32
     num2 = WIDTH // 30
+    # Multiplier based on remaining lives
+    if lives == 3:
+        multiplier = 2
+    elif lives == 2:
+        multiplier = 1.5
+    elif lives == 1:
+        multiplier = 1
+    else:
+        multiplier = 0.5  
     if 0 < player_x < 870:
         if level[center_y // num1][center_x // num2] == 1:
             level[center_y // num1][center_x // num2] = 0
-            scor += 10
+            scor += int(10 * multiplier)
         if level[center_y // num1][center_x // num2] == 2:
             level[center_y // num1][center_x // num2] = 0
-            scor += 50
+            scor += int(50 * multiplier)
             power = True
             power_count = 0
             eaten_ghosts = [False, False, False, False]
@@ -1049,7 +1059,7 @@ while run:
     targets = get_targets(blinky_x, blinky_y, inky_x, inky_y, pinky_x, pinky_y, clyde_x, clyde_y)
 
     turns_allowed = check_position(center_x, center_y)
-    if moving:
+    if moving and not game_won and not game_over:
         player_x, player_y = move_player(player_x, player_y)
         if not blinky_dead and not blinky.in_box:
             blinky_x, blinky_y, blinky_direction = blinky.move_blinky()
@@ -1066,7 +1076,7 @@ while run:
         clyde_x, clyde_y, clyde_direction = clyde.move_clyde()
     score, powerup, power_counter, eaten_ghost = check_collisions(score, powerup, power_counter, eaten_ghost)
     # add to if not powerup to check if eaten ghosts
-    if not powerup:
+    if not powerup and not game_won and not game_over:
         if (player_circle.colliderect(blinky.rect) and not blinky.dead) or \
                 (player_circle.colliderect(inky.rect) and not inky.dead) or \
                 (player_circle.colliderect(pinky.rect) and not pinky.dead) or \
@@ -1321,5 +1331,4 @@ while run:
 
     pygame.display.flip()
 pygame.quit()
-
 
