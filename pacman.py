@@ -696,9 +696,13 @@ class Ghost:
 
 def draw_misc():
     score_text = font.render(f'Score: {score}', True, 'white')
-    screen.blit(score_text, (10, 920))
+    score_pos = (10, 920)
+    screen.blit(score_text, score_pos)
+
+    # Dynamically calculate bubble position
+    score_width = score_text.get_width()
     if powerup:
-        pygame.draw.circle(screen, 'blue', (140, 930), 15)
+        pygame.draw.circle(screen, 'blue', (score_pos[0] + score_width + 25, 930), 15)
     for i in range(lives):
         screen.blit(pygame.transform.scale(player_images[0], (30, 30)), (650 + i * 40, 915))
     # ---- WIN SCREEN ----
