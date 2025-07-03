@@ -716,11 +716,16 @@ def draw_misc():
         # Draw the inner dark gray panel
         pygame.draw.rect(screen, 'darkgray', panel_rect.inflate(-20, -20), border_radius=15)
 
+        # Draw DG team logo at the top of the panel
+        logo_x = panel_rect.centerx - team_logo.get_width() // 2
+        logo_y = panel_rect.top + 20
+        screen.blit(team_logo, (logo_x, logo_y))
+
         # Calculate starting position
         start_x = panel_rect.centerx - 150
         start_y = panel_rect.top + 150
 
-        # Draw rest of the text after G
+        # Draw text
         good_job_text = font.render("Good Job!", True, 'green')
         screen.blit(good_job_text, (start_x + 45, start_y))
 
@@ -754,7 +759,7 @@ def draw_misc():
         # Draw the inner dark gray panel
         pygame.draw.rect(screen, 'darkgray', panel_rect.inflate(-20, -20), border_radius=15)
 
-        # Draw your team logo at the top of the panel
+        # Draw DG team logo at the top of the panel
         logo_x = panel_rect.centerx - team_logo.get_width() // 2
         logo_y = panel_rect.top + 20
         screen.blit(team_logo, (logo_x, logo_y))
