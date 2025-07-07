@@ -96,6 +96,7 @@ startup_counter = 0
 lives = 3
 game_over = False
 game_won = False
+win_bonus_added = False
 
 # Class that represents the ghosts 
 class Ghost:
@@ -739,14 +740,30 @@ def draw_misc():
         text_rect = std_text.get_rect(center=(panel_rect.centerx, start_y + 60))
         screen.blit(std_text, text_rect)
 
+        # Bonus points calculation 
+        if lives == 3:
+            bonus = 50000
+        elif lives == 2:
+            bonus = 25000
+        elif lives == 1:
+            bonus = 15000
+        else:
+            bonus = 10000
+
+        # Show bonus points
+        bonus_text = font.render(f"Win Bonus: {bonus} points", True, 'white')
+        bonus_rect = bonus_text.get_rect(center=(panel_rect.centerx, start_y + 120))
+        screen.blit(bonus_text, bonus_rect)
+
+        # Show total score
+        total_text = font.render(f"Total Score: {score} points", True, 'white')
+        total_rect = total_text.get_rect(center=(panel_rect.centerx, start_y + 170))
+        screen.blit(total_text, total_rect)
+
         # Instruction to restart
         restart_text = font.render("Press Space to play again!", True, 'green')
-        restart_rect = restart_text.get_rect(center=(panel_rect.centerx, start_y + 120))
+        restart_rect = restart_text.get_rect(center=(panel_rect.centerx, start_y + 230))
         screen.blit(restart_text, restart_rect)
-        # Show final score
-        score_text = font.render(f'Score: {score}', True, 'white')
-        score_rect = score_text.get_rect(center=(panel_rect.centerx, start_y + 180))
-        screen.blit(score_text, score_rect)
 
 
     # ---- GAME OVER SCREEN ----
@@ -1072,6 +1089,18 @@ while run:
     for i in range(len(level)):
         if 1 in level[i] or 2 in level[i]:
             game_won = False
+    # Add win bonus only once when the game is won
+    if game_won and not win_bonus_added:
+        if lives == 3:
+            score += 50000
+        elif lives == 2:
+            score += 25000
+        elif lives == 1:
+            score += 15000
+        elif lives == 0:
+            score += 10000
+        win_bonus_added = True
+
 
     player_circle = pygame.draw.circle(screen, 'black', (center_x, center_y), 20, 2)
     draw_player()
@@ -1323,6 +1352,8 @@ while run:
                 level = copy.deepcopy(boards)
                 game_over = False
                 game_won = False
+                win_bonus_added = False
+
 
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_RIGHT and direction_command == 0:
