@@ -337,8 +337,10 @@ class Ghost:
                     self.y_pos += self.speed
         if self.x_pos < -30:
             self.x_pos = 900
+            self.direction = 0
         elif self.x_pos > 900:
             self.x_pos -= 30
+            self.direction = 1
         return self.x_pos, self.y_pos, self.direction
 
     def move_blinky(self):
@@ -443,8 +445,10 @@ class Ghost:
                 self.y_pos += self.speed
         if self.x_pos < -30:
             self.x_pos = 900
+            self.direction = 0
         elif self.x_pos > 900:
             self.x_pos -= 30
+            self.direction = 1
         return self.x_pos, self.y_pos, self.direction
 
     def move_inky(self):
@@ -565,8 +569,10 @@ class Ghost:
                 self.y_pos += self.speed
         if self.x_pos < -30:
             self.x_pos = 900
+            self.direction = 0
         elif self.x_pos > 900:
             self.x_pos -= 30
+            self.direction = 1
         return self.x_pos, self.y_pos, self.direction
 
     def move_pinky(self):
@@ -690,8 +696,10 @@ class Ghost:
                     self.y_pos += self.speed
         if self.x_pos < -30:
             self.x_pos = 900
+            self.direction = 0
         elif self.x_pos > 900:
-            self.x_pos - 30
+            self.x_pos -= 30
+            self.direction = 1
         return self.x_pos, self.y_pos, self.direction
 
 
