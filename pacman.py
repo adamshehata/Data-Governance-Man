@@ -335,6 +335,7 @@ class Ghost:
                     self.x_pos -= self.speed
                 else:
                     self.y_pos += self.speed
+<<<<<<< HEAD
         # Tunnel warp logic
         if self.x_pos <= -45:
             self.x_pos = WIDTH
@@ -342,6 +343,14 @@ class Ghost:
         elif self.x_pos >= WIDTH + 5:
             self.x_pos = -45
             self.center_x = self.x_pos + 22
+=======
+        if self.x_pos < -30:
+            self.x_pos = 900
+            self.direction = 0
+        elif self.x_pos > 900:
+            self.x_pos -= 30
+            self.direction = 1
+>>>>>>> f68a35f4ad64dce43d0b2765db16a58b9671051e
         return self.x_pos, self.y_pos, self.direction
 
     def move_blinky(self):
@@ -444,6 +453,7 @@ class Ghost:
                     self.x_pos -= self.speed
             elif self.turns[3]:
                 self.y_pos += self.speed
+<<<<<<< HEAD
         # Tunnel warp logic
         if self.x_pos <= -45:
             self.x_pos = WIDTH
@@ -451,6 +461,14 @@ class Ghost:
         elif self.x_pos >= WIDTH + 5:
             self.x_pos = -45
             self.center_x = self.x_pos + 22
+=======
+        if self.x_pos < -30:
+            self.x_pos = 900
+            self.direction = 0
+        elif self.x_pos > 900:
+            self.x_pos -= 30
+            self.direction = 1
+>>>>>>> f68a35f4ad64dce43d0b2765db16a58b9671051e
         return self.x_pos, self.y_pos, self.direction
 
     def move_inky(self):
@@ -569,6 +587,7 @@ class Ghost:
                     self.x_pos += self.speed
             elif self.turns[3]:
                 self.y_pos += self.speed
+<<<<<<< HEAD
         # Tunnel warp logic
         if self.x_pos <= -45:
             self.x_pos = WIDTH
@@ -576,6 +595,14 @@ class Ghost:
         elif self.x_pos >= WIDTH + 5:
             self.x_pos = -45
             self.center_x = self.x_pos + 22
+=======
+        if self.x_pos < -30:
+            self.x_pos = 900
+            self.direction = 0
+        elif self.x_pos > 900:
+            self.x_pos -= 30
+            self.direction = 1
+>>>>>>> f68a35f4ad64dce43d0b2765db16a58b9671051e
         return self.x_pos, self.y_pos, self.direction
 
     def move_pinky(self):
@@ -697,6 +724,7 @@ class Ghost:
                     self.x_pos -= self.speed
                 else:
                     self.y_pos += self.speed
+<<<<<<< HEAD
         # Tunnel warp logic
         if self.x_pos <= -45:
             self.x_pos = WIDTH
@@ -704,6 +732,14 @@ class Ghost:
         elif self.x_pos >= WIDTH + 5:
             self.x_pos = -45
             self.center_x = self.x_pos + 22
+=======
+        if self.x_pos < -30:
+            self.x_pos = 900
+            self.direction = 0
+        elif self.x_pos > 900:
+            self.x_pos -= 30
+            self.direction = 1
+>>>>>>> f68a35f4ad64dce43d0b2765db16a58b9671051e
         return self.x_pos, self.y_pos, self.direction
 
 
