@@ -36,7 +36,7 @@ g_logo_img = pygame.image.load('assets/g_logo.png')
 g_logo_img = pygame.transform.scale(g_logo_img, (40, 40))
 # Initial player starting position
 player_x = 450
-player_y = 663
+player_y = 663 
 # Initial player movement direction at 0 (stopped)
 direction = 0
 # Initial positions and movement directions for each ghost 
@@ -335,10 +335,13 @@ class Ghost:
                     self.x_pos -= self.speed
                 else:
                     self.y_pos += self.speed
-        if self.x_pos < -30:
-            self.x_pos = 900
-        elif self.x_pos > 900:
-            self.x_pos -= 30
+        # Tunnel warp logic
+        if self.x_pos <= -45:
+            self.x_pos = WIDTH
+            self.center_x = self.x_pos + 22
+        elif self.x_pos >= WIDTH + 5:
+            self.x_pos = -45
+            self.center_x = self.x_pos + 22
         return self.x_pos, self.y_pos, self.direction
 
     def move_blinky(self):
@@ -441,10 +444,13 @@ class Ghost:
                     self.x_pos -= self.speed
             elif self.turns[3]:
                 self.y_pos += self.speed
-        if self.x_pos < -30:
-            self.x_pos = 900
-        elif self.x_pos > 900:
-            self.x_pos -= 30
+        # Tunnel warp logic
+        if self.x_pos <= -45:
+            self.x_pos = WIDTH
+            self.center_x = self.x_pos + 22
+        elif self.x_pos >= WIDTH + 5:
+            self.x_pos = -45
+            self.center_x = self.x_pos + 22
         return self.x_pos, self.y_pos, self.direction
 
     def move_inky(self):
@@ -563,10 +569,13 @@ class Ghost:
                     self.x_pos += self.speed
             elif self.turns[3]:
                 self.y_pos += self.speed
-        if self.x_pos < -30:
-            self.x_pos = 900
-        elif self.x_pos > 900:
-            self.x_pos -= 30
+        # Tunnel warp logic
+        if self.x_pos <= -45:
+            self.x_pos = WIDTH
+            self.center_x = self.x_pos + 22
+        elif self.x_pos >= WIDTH + 5:
+            self.x_pos = -45
+            self.center_x = self.x_pos + 22
         return self.x_pos, self.y_pos, self.direction
 
     def move_pinky(self):
@@ -688,10 +697,13 @@ class Ghost:
                     self.x_pos -= self.speed
                 else:
                     self.y_pos += self.speed
-        if self.x_pos < -30:
-            self.x_pos = 900
-        elif self.x_pos > 900:
-            self.x_pos -= 30
+        # Tunnel warp logic
+        if self.x_pos <= -45:
+            self.x_pos = WIDTH
+            self.center_x = self.x_pos + 22
+        elif self.x_pos >= WIDTH + 5:
+            self.x_pos = -45
+            self.center_x = self.x_pos + 22
         return self.x_pos, self.y_pos, self.direction
 
 
